@@ -1,5 +1,5 @@
 from django.contrib import admin
-from blog.models import Post
+from blog.models import Comment, Post
 
 # This is a way to register the Post model with the admin site
 # admin.site.register(Post)
@@ -14,3 +14,10 @@ class PostAdmin(admin.ModelAdmin):
     raw_id_fields = ('author',)                                     # This is the field to display as a lookup widget
     date_hierarchy = 'publish'                                      # This is the field to display as a date hierarchy
     ordering = ('status', 'publish')                                # This is the list of fields to order the results by
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['name', 'email', 'post', 'created', 'active']
+    list_filter = ['active', 'created', 'updated']
+    search_fields = ['name', 'email', 'body']
